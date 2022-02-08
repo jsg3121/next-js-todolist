@@ -7,7 +7,7 @@ export type SampleState = {
 };
 
 const sampleState: SampleState = {
-  name: '',
+  name: 'before',
 };
 
 const sampleReducer = createReducer<SampleState>(sampleState, (builder) => {

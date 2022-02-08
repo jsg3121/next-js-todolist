@@ -15,7 +15,6 @@ const prisma = new PrismaClient();
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const { email, name, password } = req.body;
-
   await prisma.user
     .create({
       data: {

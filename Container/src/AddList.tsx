@@ -1,12 +1,13 @@
+import http from 'axios';
 import type { NextPage } from 'next';
 import React from 'react';
-import useSWR, { useSWRConfig } from 'swr';
-import http from 'axios';
 import { useForm } from 'react-hook-form';
+import useSWR, { useSWRConfig } from 'swr';
 
 export const AddList: NextPage = (props) => {
   const { register, handleSubmit } = useForm();
   const { mutate } = useSWRConfig();
+
   const { data } = useSWR('/api/test', async (...args) => {
     const res = await fetch(...args);
     return await res.json();

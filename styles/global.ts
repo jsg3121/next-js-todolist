@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import { reset } from "styled-reset";
+import { createGlobalStyle } from 'styled-components';
+import { reset } from 'styled-reset';
 
 export const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
         display: none;
     }
     html{
-        font-size: 11px;
+        font-size: 16px;
         -webkit-text-size-adjust: none;
         font-family: -apple-system,BlinkMacSystemFont,helvetica,Apple SD Gothic Neo,sans-serif;       
         font-display: fallback;
