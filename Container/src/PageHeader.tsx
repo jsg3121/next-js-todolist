@@ -1,6 +1,8 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
+import React from 'react';
 import styled from 'styled-components';
-import { Title } from '../../components';
+import { Button, Title } from '../../components';
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -10,6 +12,10 @@ const HeaderContainer = styled.header`
 `;
 
 export const PageHeader: NextPage = (props) => {
+  const handleClick = React.useCallback(() => {
+    console.log('dasdf');
+  }, []);
+
   return (
     <>
       <HeaderContainer>

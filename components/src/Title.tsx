@@ -7,7 +7,7 @@ type TitleProps = {
   color?: 'white' | 'black';
 };
 
-const TitleContainer = styled((props) => {
+const H1 = styled((props) => {
   return <h1 {...props}></h1>;
 })`
   font-size: 3rem;
@@ -19,5 +19,5 @@ const TitleContainer = styled((props) => {
 export const Title: NextPage<TitleProps> = (props) => {
   const { children, color } = props;
 
-  return <TitleContainer color={color}>{children}</TitleContainer>;
+  return <H1 color={color}>{children}</H1>;
 };

@@ -10,13 +10,15 @@ export const GlobalStyle = createGlobalStyle`
     ::-webkit-scrollbar {
         display: none;
     }
-    html{
+    html,body{
         font-size: 16px;
         -webkit-text-size-adjust: none;
         font-family: -apple-system,BlinkMacSystemFont,helvetica,Apple SD Gothic Neo,sans-serif;       
         font-display: fallback;
         -ms-overflow-style: none;
         scrollbar-width: none;
+        width: 100%;
+        min-height: 100vh;
     }
     button {
         background: none;
