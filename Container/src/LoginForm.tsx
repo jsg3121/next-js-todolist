@@ -1,28 +1,40 @@
-import type { NextPage } from 'next';
-import { useForm } from 'react-hook-form';
-import React from 'react';
-import useSWR, { useSWRConfig } from 'swr';
 import http from 'axios';
+import type { NextPage } from 'next';
+import Router from 'next/router';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useSWRConfig } from 'swr';
 import { Actions, useDispatch } from '../../store';
 
 interface LoginFormProps {}
 
-export const LoginForm: NextPage<LoginFormProps> = (props) => {
+export const LoginForm: NextPage<LoginFormProps> = () => {
   const { register, handleSubmit } = useForm();
   const { mutate } = useSWRConfig();
+  const dispatch = useDispatch();
 
-  const handleClick = React.useCallback((data) => {
-    // mutate('/api/login', async () => {
-    //   await http
-    //     .request({
-    //       method: 'POST',
-    //       url: '/api/login',
-    //       data: data,
-    //       headers: { 'Content-Type': 'application/json' },
-    //     })
-    //     .then((res) => res.data);
-    // });
-  }, []);
+  const handleClick = React.useCallback(
+    (data) => {
+      mutate('/api/login', async () => {
+        await http
+          .request({
+            method: 'POST',
+            url: '/api/login',
+            data: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' },
+          })
+          .then((res) => {
+            localStorage.setItem('check', 'true');
+            dispatch(Actions.user.user(res.data));
+            Router.push('/');
+          })
+          .catch(() => {
+            alert('err!!!');
+          });
+      });
+    },
+    [dispatch, mutate]
+  );
 
   return (
     <>
@@ -34,10 +46,6 @@ export const LoginForm: NextPage<LoginFormProps> = (props) => {
         <div>
           <p>Password</p>
           <input type="password" {...register('password')} />
-        </div>
-        <div>
-          <p>Name</p>
-          <input type="text" {...register('name')} />
         </div>
         <button>Login</button>
       </form>

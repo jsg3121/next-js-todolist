@@ -1,6 +1,8 @@
 import type { NextPage } from 'next';
+import Router from 'next/router';
 import styled from 'styled-components';
 import { LoginForm } from '../../Container';
+import React from 'react';
 
 const Container = styled.section`
   width: 100%;
@@ -15,7 +17,13 @@ const Article = styled.article`
   background-color: #cccae3;
 `;
 
-const login: NextPage = (props) => {
+const Login: NextPage = (props) => {
+  React.useEffect(() => {
+    if (localStorage.getItem('check') === 'true') {
+      Router.replace('/user/login');
+    }
+  }, []);
+
   return (
     <Container>
       <Article>
@@ -25,4 +33,4 @@ const login: NextPage = (props) => {
   );
 };
 
-export default login;
+export default Login;

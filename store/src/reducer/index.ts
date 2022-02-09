@@ -1,9 +1,9 @@
 import { AnyAction, combineReducers } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
-import sample, { SampleState } from './src/sample.reducer';
+import user, { UserState } from './src/user.reducer';
 
 export type RootState = {
-  sample: SampleState;
+  user: UserState;
 };
 
 const rootReducer = (state: RootState | undefined, action: AnyAction) => {
@@ -16,7 +16,7 @@ const rootReducer = (state: RootState | undefined, action: AnyAction) => {
   }
 
   const reducers = combineReducers({
-    sample,
+    user,
   });
 
   return reducers(state, action);
