@@ -1,22 +1,28 @@
-import { createReducer } from '@reduxjs/toolkit';
-import produce from 'immer';
-import { userActions } from '../../actions';
+import { createReducer } from '@reduxjs/toolkit'
+import { tokenEncryption } from 'common'
+import produce from 'immer'
+import { userActions } from 'store/src/actions'
 
 export type UserState = {
-  name: string;
-};
+  name: string
+  email: string
+}
 
 const userState: UserState = {
-  name: 'before',
-};
+  name: '',
+  email: '',
+}
 
 const userReducer = createReducer<UserState>(userState, (builder) => {
   builder.addCase(userActions.user, (store, { payload }) => {
-    console.log(payload);
+    if (payload.token) {
+      tokenEncryption(payload)
+    }
     return produce(store, (draft) => {
-      draft.name = 'change!';
-    });
-  });
-});
+      draft.email = payload.email
+      draft.name = payload.name
+    })
+  })
+})
 
-export default userReducer;
+export default userReducer

@@ -11,8 +11,10 @@
     "@prisma/client": "3.9.1",
     "@reduxjs/toolkit": "^1.7.2",
     "axios": "^0.25.0",
+    "crypto-js": "^4.1.1",
     "dotenv": "^16.0.0",
     "immer": "^9.0.12",
+    "jsonwebtoken": "^8.5.1",
     "next": "12.0.10",
     "next-redux-wrapper": "^7.0.5",
     "react": "17.0.2",
@@ -26,7 +28,9 @@
     "swr": "^1.2.1"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.1.0",
     "@types/dotenv": "^8.2.0",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "17.0.16",
     "@types/react": "17.0.39",
     "@types/react-redux": "^7.1.22",

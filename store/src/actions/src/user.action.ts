@@ -1,3 +1,9 @@
-import { createAction } from '@reduxjs/toolkit';
+import { createAction } from '@reduxjs/toolkit'
+import { Jwt } from 'jsonwebtoken'
 
-export const user = createAction<string, '@@/USER'>('@@/USER');
+interface UserData {
+  name: string
+  email: string
+  token: Jwt
+}
+export const user = createAction<UserData, '@@/USER'>('@@/USER')

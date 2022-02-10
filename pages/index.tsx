@@ -1,15 +1,29 @@
-import type { NextPage } from 'next';
-import Router from 'next/router';
-import React from 'react';
-import { PageHeader, TodoList } from '../Container';
+import http from 'axios'
+import { PageHeader, TodoList } from 'Container'
+import type { NextPage } from 'next'
+import React from 'react'
+import useSWR from 'swr'
+import { Actions, useDispatch } from '../store'
 
 const Home: NextPage = () => {
+  const dispatch = useDispatch()
+  const { data } = useSWR('/api/tokencheck', async () => {
+    return await http
+      .request({
+        method: 'POST',
+        url: 'api/tokencheck',
+        data: { data: localStorage.getItem('accessToken') },
+      })
+      .then((res) => {
+        return res.data
+      })
+  })
+
   React.useEffect(() => {
-    console.log(localStorage.getItem('check'));
-    if (localStorage.getItem('check') === 'false') {
-      Router.replace('/user/login');
+    if (data) {
+      dispatch(Actions.user.user(data))
     }
-  }, []);
+  }, [data, dispatch])
 
   return (
     <>
@@ -20,7 +34,7 @@ const Home: NextPage = () => {
         <TodoList />
       </section>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

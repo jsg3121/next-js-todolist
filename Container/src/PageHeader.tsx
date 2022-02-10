@@ -1,8 +1,7 @@
+import { Title } from 'components';
 import type { NextPage } from 'next';
-import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Title } from '../../components';
 
 const HeaderContainer = styled.header`
   width: 100%;

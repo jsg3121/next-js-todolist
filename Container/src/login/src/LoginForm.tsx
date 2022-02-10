@@ -1,17 +1,17 @@
-import http from 'axios';
-import type { NextPage } from 'next';
-import Router from 'next/router';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useSWRConfig } from 'swr';
-import { Actions, useDispatch } from '../../store';
+import http from 'axios'
+import type { NextPage } from 'next'
+import Router from 'next/router'
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { Actions, useDispatch } from 'store'
+import { useSWRConfig } from 'swr'
 
 interface LoginFormProps {}
 
 export const LoginForm: NextPage<LoginFormProps> = () => {
-  const { register, handleSubmit } = useForm();
-  const { mutate } = useSWRConfig();
-  const dispatch = useDispatch();
+  const { register, handleSubmit } = useForm()
+  const { mutate } = useSWRConfig()
+  const dispatch = useDispatch()
 
   const handleClick = React.useCallback(
     (data) => {
@@ -24,17 +24,16 @@ export const LoginForm: NextPage<LoginFormProps> = () => {
             headers: { 'Content-Type': 'application/json' },
           })
           .then((res) => {
-            localStorage.setItem('check', 'true');
-            dispatch(Actions.user.user(res.data));
-            Router.push('/');
+            dispatch(Actions.user.user(res.data))
+            Router.push('/')
           })
           .catch(() => {
-            alert('err!!!');
-          });
-      });
+            alert('err!!!')
+          })
+      })
     },
     [dispatch, mutate]
-  );
+  )
 
   return (
     <>
@@ -50,5 +49,5 @@ export const LoginForm: NextPage<LoginFormProps> = () => {
         <button>Login</button>
       </form>
     </>
-  );
-};
+  )
+}

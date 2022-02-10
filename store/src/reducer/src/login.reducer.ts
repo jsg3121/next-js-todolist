@@ -1,6 +1,4 @@
 import { createReducer } from '@reduxjs/toolkit';
-import produce from 'immer';
-import { loginActions } from '../../actions';
 
 const authState = {
   loading: false,
@@ -10,23 +8,23 @@ const authState = {
 };
 
 const signUpReducer = createReducer(authState, (builder) => {
-  builder
-    .addCase(loginActions.login.pending, (store, { payload }) => {
-      return produce(store, (draft) => {
-        draft.loading = true;
-      });
-    })
-    .addCase(loginActions.login.fulfilled, (store, { payload }) => {
-      return produce(store, (draft) => {
-        draft.loading = false;
-        draft.accessToken = payload.accessToken;
-        draft.refreshToken = payload.refreshToken;
-      });
-    })
-    .addCase(loginActions.login.rejected, (store, { payload }) => {
-      console.log(payload);
-      return;
-    });
+  builder;
+  // .addCase(loginActions.login.pending, (store, { payload }) => {
+  //   return produce(store, (draft) => {
+  //     draft.loading = true;
+  //   });
+  // })
+  // .addCase(loginActions.login.fulfilled, (store, { payload }) => {
+  //   return produce(store, (draft) => {
+  //     draft.loading = false;
+  //     draft.accessToken = payload.accessToken;
+  //     draft.refreshToken = payload.refreshToken;
+  //   });
+  // })
+  // .addCase(loginActions.login.rejected, (store, { payload }) => {
+  //   console.log(payload);
+  //   return;
+  // });
 });
 
 export default signUpReducer;

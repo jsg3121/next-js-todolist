@@ -1,13 +1,14 @@
-import type { AppProps } from 'next/app';
-import Head from 'next/head';
-import styled from 'styled-components';
-import { wrapper } from '../store';
-import { GlobalStyle } from '../styles';
+import type { AppProps } from 'next/app'
+import Head from 'next/head'
+import React from 'react'
+import styled from 'styled-components'
+import { wrapper } from '../store'
+import { GlobalStyle } from '../styles'
 
 const Main = styled.main`
   width: 100%;
   height: 100vh;
-`;
+`
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -22,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </Main>
     </>
-  );
+  )
 }
 
-export default wrapper.withRedux(MyApp);
+export default wrapper.withRedux(MyApp)
