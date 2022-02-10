@@ -27,9 +27,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <section>
-        <PageHeader />
-      </section>
+      <section>{/* <PageHeader /> */}</section>
       <section>
         <TodoList />
       </section>
