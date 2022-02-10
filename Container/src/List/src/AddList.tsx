@@ -15,20 +15,18 @@ export const AddList: NextPage = (props) => {
   const { register, handleSubmit } = useForm()
   const { mutate } = useSWRConfig()
   const id = useSelector(({ user }) => user.id)
-  const [list, setList] = React.useState<Array<TodoListData>>([])
 
-  const { data = [], mutate: refetch } = useSWR(`/api/list/${id}`, async () => {
-    return await http
-      .request({
-        method: 'GET',
-        url: `/api/list/${id}`,
-      })
-      .then((res) => res.data)
-  })
-
-  React.useEffect(() => {
-    setList(data)
-  }, [data])
+  const { data: list = [], mutate: refetch } = useSWR(
+    `/api/list/${id}`,
+    async () => {
+      return await http
+        .request({
+          method: 'GET',
+          url: `/api/list/${id}`,
+        })
+        .then((res) => res.data)
+    }
+  )
 
   const handleClick = React.useCallback(
     (data) => {
@@ -65,7 +63,6 @@ export const AddList: NextPage = (props) => {
             </li>
           )
         })}
-        {/* {JSON.stringify(list)} */}
       </ul>
       <form onSubmit={handleSubmit(handleClick)}>
         <div>

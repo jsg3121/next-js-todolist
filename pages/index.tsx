@@ -1,5 +1,5 @@
 import http from 'axios'
-import { PageHeader, TodoList } from 'Container'
+import { TodoList } from 'Container'
 import type { NextPage } from 'next'
 import React from 'react'
 import useSWR from 'swr'
@@ -19,6 +19,10 @@ const Home: NextPage = () => {
       })
   })
 
+  const handleClick = React.useCallback(() => {
+    dispatch(Actions.login.logout(''))
+  }, [dispatch])
+
   React.useEffect(() => {
     if (data) {
       dispatch(Actions.user.user(data))
@@ -27,7 +31,10 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <section>{/* <PageHeader /> */}</section>
+      <section>
+        {/* <PageHeader /> */}
+        <button onClick={handleClick}>로그아웃</button>
+      </section>
       <section>
         <TodoList />
       </section>
