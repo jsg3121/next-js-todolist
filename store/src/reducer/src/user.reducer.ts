@@ -6,11 +6,13 @@ import { userActions } from 'store/src/actions'
 export type UserState = {
   name: string
   email: string
+  id: number
 }
 
 const userState: UserState = {
   name: '',
   email: '',
+  id: 0,
 }
 
 const userReducer = createReducer<UserState>(userState, (builder) => {
@@ -21,6 +23,7 @@ const userReducer = createReducer<UserState>(userState, (builder) => {
     return produce(store, (draft) => {
       draft.email = payload.email
       draft.name = payload.name
+      draft.id = payload.id
     })
   })
 })

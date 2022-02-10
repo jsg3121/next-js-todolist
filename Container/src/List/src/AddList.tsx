@@ -5,36 +5,68 @@ import { useForm } from 'react-hook-form'
 import { useSelector } from 'store'
 import useSWR, { useSWRConfig } from 'swr'
 
+interface TodoListData {
+  title: string
+  content: string
+  createDate: string
+}
+
 export const AddList: NextPage = (props) => {
   const { register, handleSubmit } = useForm()
   const { mutate } = useSWRConfig()
-  const email = useSelector(({ user }) => user.email)
+  const id = useSelector(({ user }) => user.id)
+  const [list, setList] = React.useState<Array<TodoListData>>([])
 
-  const { data } = useSWR('/api/test', async (...args) => {
-    const res = await fetch(...args)
-    return await res.json()
+  const { data = [], mutate: refetch } = useSWR(`/api/list/${id}`, async () => {
+    return await http
+      .request({
+        method: 'GET',
+        url: `/api/list/${id}`,
+      })
+      .then((res) => res.data)
   })
+
+  React.useEffect(() => {
+    setList(data)
+  }, [data])
 
   const handleClick = React.useCallback(
     (data) => {
-      mutate('/api/addlist', async () => {
+      mutate(`/api/list/addlist`, async () => {
         await http
-          .request({
+          .request<Array<TodoListData>>({
             method: 'POST',
-            url: '/api/addlist',
+            url: '/api/list/addlist',
             data: {
               ...data,
-              email,
+              id,
             },
           })
-          .then((res) => res.data)
+          .then((res) => {
+            const list = res.data
+            return list
+          })
+      }).then(async () => {
+        await mutate(`/api/list/${id}`)
       })
     },
-    [email, mutate]
+    [id, mutate]
   )
 
   return (
     <>
+      <ul>
+        {list.map((item: any, index: number) => {
+          return (
+            <li key={index}>
+              <p>title : ${item.title}</p>
+              <p>cotent : ${item.content}</p>
+              <p>create date : ${item.createDate}</p>
+            </li>
+          )
+        })}
+        {/* {JSON.stringify(list)} */}
+      </ul>
       <form onSubmit={handleSubmit(handleClick)}>
         <div>
           <p>제목</p>
