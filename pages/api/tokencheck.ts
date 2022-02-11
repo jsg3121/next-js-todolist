@@ -5,27 +5,29 @@ import { NextApiHandler } from 'next'
 const prisma = new PrismaClient()
 
 const handler: NextApiHandler = async (req, res) => {
-  const { data } = req.body
-  const token = JSON.parse(decrypToken(data))
+  const { token } = req.body
+  const { data } = JSON.parse(decrypToken(token))
 
   const check = await prisma.token.findUnique({
     where: {
-      accessToken: token.data,
+      accessToken: data,
     },
   })
+
+  console.log(check)
+
   if (check) {
     const user = await prisma.user.findUnique({
       where: {
         id: check.userId,
       },
     })
-
     if (user) {
       res.status(200).send({
         name: user.userName,
         email: user.userEmail,
         id: user.id,
-        token: token.data,
+        token: data,
       })
     }
   }

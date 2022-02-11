@@ -1,1 +1,1 @@
-export * from './src/signOut'
+export * from './src/auth'

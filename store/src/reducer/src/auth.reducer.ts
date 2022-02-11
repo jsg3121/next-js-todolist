@@ -1,4 +1,4 @@
-import { createReducer } from '@reduxjs/toolkit'
+import { createReducer, isAnyOf } from '@reduxjs/toolkit'
 import { tokenEncryption } from 'common'
 import produce from 'immer'
 import { Jwt } from 'jsonwebtoken'
@@ -26,11 +26,6 @@ const authState: AuthState = {
 
 const authReducer = createReducer(authState, (builder) => {
   builder
-    .addCase(authActions.logout.pending, (store, { payload }) => {
-      return produce(store, (draft) => {
-        draft.loading = true
-      })
-    })
     .addCase(authActions.logout.fulfilled, (store, { payload }) => {
       return produce(store, (draft) => {
         draft.loading = false
@@ -38,21 +33,42 @@ const authReducer = createReducer(authState, (builder) => {
         draft.refreshToken = ''
       })
     })
-    .addCase(authActions.logout.rejected, (store, { payload }) => {
-      console.log('asdfasdfasdfasdf')
-      return
-    })
-    .addCase(authActions.user, (store, { payload }) => {
-      if (payload.token) {
-        tokenEncryption(payload)
-      }
+    .addCase(authActions.login.fulfilled, (store, { payload }) => {
+      const encrypt = { token: payload.token, name: payload.name }
+      tokenEncryption(encrypt)
+
       return produce(store, (draft) => {
-        draft.email = payload.email
-        draft.name = payload.name
+        draft.loading = false
         draft.id = payload.id
-        draft.accessToken = payload.token
+        draft.accessToken = payload.accessToken
+        draft.name = payload.name
       })
     })
+    .addCase(authActions.loginCheck.fulfilled, (store, { payload }) => {
+      console.log(payload)
+      return produce(store, (draft) => {
+        draft.loading = false
+        draft.id = payload.id
+        draft.accessToken = payload.accessToken
+        draft.name = payload.name
+        draft.email = payload.email
+      })
+    })
+    .addMatcher(
+      isAnyOf(
+        authActions.logout.pending,
+        authActions.login.pending,
+        authActions.logout.rejected,
+        authActions.logout.rejected,
+        authActions.loginCheck.pending,
+        authActions.loginCheck.rejected
+      ),
+      (store, _) => {
+        return produce(store, (draft) => {
+          draft.loading = true
+        })
+      }
+    )
 })
 
 export default authReducer

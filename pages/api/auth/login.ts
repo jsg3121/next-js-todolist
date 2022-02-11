@@ -48,9 +48,12 @@ const handler: NextApiHandler = async (req, res) => {
           prisma.$disconnect
         })
 
-      res
-        .status(200)
-        .send({ name: data.userName, email: data.userEmail, token })
+      res.status(200).send({
+        id: data.id,
+        name: data.userName,
+        email: data.userEmail,
+        token,
+      })
       res.end()
     }
     if (data.password !== password) {

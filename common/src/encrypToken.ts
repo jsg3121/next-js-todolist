@@ -4,7 +4,6 @@ import { CRYPTO_KEY } from './cryptoKey'
 
 interface UserData {
   name: string
-  email: string
   token: Jwt
 }
 
@@ -12,7 +11,7 @@ type TokenEncryption = (data: UserData) => void
 
 export const tokenEncryption: TokenEncryption = (data) => {
   const { token, name } = data
-  console.log(token)
+  console.log(data)
   localStorage.setItem(
     'accessToken',
     CryptoJs.AES.encrypt(

@@ -15,24 +15,25 @@ export const LoginForm: NextPage<LoginFormProps> = () => {
 
   const handleClick = React.useCallback(
     (data) => {
-      mutate('/api/login', async () => {
-        await http
-          .request({
-            method: 'POST',
-            url: '/api/auth/login',
-            data: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' },
-          })
-          .then((res) => {
-            dispatch(Actions.auth.user(res.data))
-            Router.push('/')
-          })
-          .catch(() => {
-            alert('err!!!')
-          })
-      })
+      dispatch(Actions.auth.login(data))
+
+      // mutate('/api/login', async () => {
+      //   await http
+      //     .request({
+      //       method: 'POST',
+      //       url: '/api/auth/login',
+      //       data: JSON.stringify(data),
+      //       headers: { 'Content-Type': 'application/json' },
+      //     })
+      //     .then((res) => {
+      //       // Router.push('/')
+      //     })
+      //     .catch(() => {
+      //       alert('err!!!')
+      //     })
+      // })
     },
-    [dispatch, mutate]
+    [dispatch]
   )
 
   return (
