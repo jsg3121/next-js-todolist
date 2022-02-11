@@ -1,23 +1,16 @@
-import { PrismaClient } from '@prisma/client'
+import { Query } from 'database'
 import { NextApiHandler } from 'next'
-
-const prisma = new PrismaClient()
 
 const handler: NextApiHandler = async (req, res) => {
   const { token } = req.body
 
-  return await prisma.token
-    .delete({
-      where: {
-        accessToken: token,
-      },
-    })
+  return await Query.deleteToken(token)
     .then(() => {
-      res.status(200)
+      res.status(200).send(true)
       res.end()
     })
-    .catch(() => {
-      res.status(400)
+    .catch((e) => {
+      res.status(500).send(e)
       res.end()
     })
 }

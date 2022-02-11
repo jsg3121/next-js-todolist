@@ -14,8 +14,6 @@ const handler: NextApiHandler = async (req, res) => {
     },
   })
 
-  console.log(check)
-
   if (check) {
     const user = await prisma.user.findUnique({
       where: {

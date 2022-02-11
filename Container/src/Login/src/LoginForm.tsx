@@ -10,28 +10,11 @@ interface LoginFormProps {}
 
 export const LoginForm: NextPage<LoginFormProps> = () => {
   const { register, handleSubmit } = useForm()
-  const { mutate } = useSWRConfig()
   const dispatch = useDispatch()
 
   const handleClick = React.useCallback(
     (data) => {
       dispatch(Actions.auth.login(data))
-
-      // mutate('/api/login', async () => {
-      //   await http
-      //     .request({
-      //       method: 'POST',
-      //       url: '/api/auth/login',
-      //       data: JSON.stringify(data),
-      //       headers: { 'Content-Type': 'application/json' },
-      //     })
-      //     .then((res) => {
-      //       // Router.push('/')
-      //     })
-      //     .catch(() => {
-      //       alert('err!!!')
-      //     })
-      // })
     },
     [dispatch]
   )

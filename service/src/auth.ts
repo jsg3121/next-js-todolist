@@ -28,14 +28,12 @@ export const signOut = async (data: any) => {
       data: { token: decrypy.data },
     })
     .then((res) => {
-      console.log(res)
       return res.status
     })
 }
 
 export const tokenCheck = async () => {
   const token = localStorage.getItem('accessToken') || ''
-  console.log(localStorage.getItem('accessToken'))
   return await http
     .request({
       method: 'POST',

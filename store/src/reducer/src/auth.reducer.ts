@@ -1,5 +1,5 @@
 import { createReducer, isAnyOf } from '@reduxjs/toolkit'
-import { tokenEncryption } from 'common'
+import { encryptToken } from 'common'
 import produce from 'immer'
 import { Jwt } from 'jsonwebtoken'
 import { authActions } from 'store/src/actions'
@@ -35,8 +35,7 @@ const authReducer = createReducer(authState, (builder) => {
     })
     .addCase(authActions.login.fulfilled, (store, { payload }) => {
       const encrypt = { token: payload.token, name: payload.name }
-      tokenEncryption(encrypt)
-
+      encryptToken(encrypt)
       return produce(store, (draft) => {
         draft.loading = false
         draft.id = payload.id
@@ -45,11 +44,10 @@ const authReducer = createReducer(authState, (builder) => {
       })
     })
     .addCase(authActions.loginCheck.fulfilled, (store, { payload }) => {
-      console.log(payload)
       return produce(store, (draft) => {
         draft.loading = false
         draft.id = payload.id
-        draft.accessToken = payload.accessToken
+        draft.accessToken = payload.token
         draft.name = payload.name
         draft.email = payload.email
       })
