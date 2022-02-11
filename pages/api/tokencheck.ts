@@ -21,9 +21,12 @@ const handler: NextApiHandler = async (req, res) => {
     })
 
     if (user) {
-      res
-        .status(200)
-        .send({ name: user.userName, email: user.userEmail, id: user.id })
+      res.status(200).send({
+        name: user.userName,
+        email: user.userEmail,
+        id: user.id,
+        token: token.data,
+      })
     }
   }
 }

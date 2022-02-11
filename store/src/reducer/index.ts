@@ -1,25 +1,25 @@
-import { AnyAction, combineReducers } from '@reduxjs/toolkit';
-import { HYDRATE } from 'next-redux-wrapper';
-import user, { UserState } from './src/user.reducer';
+import { AnyAction, combineReducers } from '@reduxjs/toolkit'
+import { HYDRATE } from 'next-redux-wrapper'
+import auth, { AuthState } from './src/auth.reducer'
 
 export type RootState = {
-  user: UserState;
-};
+  auth: AuthState
+}
 
 const rootReducer = (state: RootState | undefined, action: AnyAction) => {
   if (action.type === HYDRATE) {
     const rootState = {
       ...state,
       ...action.payload,
-    };
-    return rootState;
+    }
+    return rootState
   }
 
   const reducers = combineReducers({
-    user,
-  });
+    auth,
+  })
 
-  return reducers(state, action);
-};
+  return reducers(state, action)
+}
 
-export default rootReducer;
+export default rootReducer

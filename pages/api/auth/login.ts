@@ -33,6 +33,7 @@ const handler: NextApiHandler = async (req, res) => {
   })
 
   if (data) {
+    console.log(data)
     if (data.password === password) {
       const token = createToken(data)
       await prisma.token

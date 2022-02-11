@@ -19,12 +19,12 @@ export const LoginForm: NextPage<LoginFormProps> = () => {
         await http
           .request({
             method: 'POST',
-            url: '/api/login',
+            url: '/api/auth/login',
             data: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' },
           })
           .then((res) => {
-            dispatch(Actions.user.user(res.data))
+            dispatch(Actions.auth.user(res.data))
             Router.push('/')
           })
           .catch(() => {

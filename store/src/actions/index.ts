@@ -1,12 +1,9 @@
-import * as user from './src/user.action'
-import * as login from './src/login.action'
+import * as auth from './src/auth.action'
 
 const Default = {
-  user,
-  login,
+  auth,
 }
 
 export default Default
 
-export * as userActions from './src/user.action'
-export * as loginActions from './src/login.action'
+export * as authActions from './src/auth.action'

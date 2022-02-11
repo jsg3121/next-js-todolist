@@ -15,7 +15,7 @@ interface RequestData {
 const prisma = new PrismaClient()
 
 const handler: NextApiHandler<Result> = async (req, res) => {
-  const { title, content, id } = <RequestData>req.body
+  const { title, content, id = 0 } = <RequestData>req.body
 
   await prisma.post
     .create({

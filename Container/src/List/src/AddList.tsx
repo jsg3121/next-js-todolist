@@ -14,7 +14,7 @@ interface TodoListData {
 export const AddList: NextPage = (props) => {
   const { register, handleSubmit } = useForm()
   const { mutate } = useSWRConfig()
-  const id = useSelector(({ user }) => user.id)
+  const id = useSelector(({ auth }) => auth.id)
 
   const { data: list = [], mutate: refetch } = useSWR(
     `/api/list/${id}`,

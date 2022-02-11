@@ -20,12 +20,13 @@ const Home: NextPage = () => {
   })
 
   const handleClick = React.useCallback(() => {
-    dispatch(Actions.login.logout(''))
+    const token = localStorage.getItem('accessToken') || ''
+    dispatch(Actions.auth.logout(token))
   }, [dispatch])
 
   React.useEffect(() => {
     if (data) {
-      dispatch(Actions.user.user(data))
+      dispatch(Actions.auth.user(data))
     }
   }, [data, dispatch])
 
