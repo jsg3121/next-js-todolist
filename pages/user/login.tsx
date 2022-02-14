@@ -1,21 +1,23 @@
+import { Container, Text } from '@nextui-org/react'
 import { LoginForm } from 'Container'
 import type { NextPage } from 'next'
-import Router from 'next/router'
 import React from 'react'
 import { Actions, useDispatch } from 'store'
 import styled from 'styled-components'
 
-const Container = styled.section`
+const LoginContainer = styled.section`
   width: 100%;
   height: 100%;
-  background-color: #6667ab;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
-const Article = styled.article`
+const Article = styled(Container)`
   width: 50%;
   max-width: 550px;
-  background-color: #cccae3;
+  position: relative;
 `
 
 const Login: NextPage = (props) => {
@@ -26,11 +28,21 @@ const Login: NextPage = (props) => {
   }, [dispatch])
 
   return (
-    <Container>
+    <LoginContainer>
       <Article>
+        <Text
+          h1
+          size={'5rem'}
+          css={{
+            textGradient: '45deg, $blue500 -20%, $pink500 50%',
+          }}
+          weight="bold"
+        >
+          Todo List
+        </Text>
         <LoginForm />
       </Article>
-    </Container>
+    </LoginContainer>
   )
 }
 

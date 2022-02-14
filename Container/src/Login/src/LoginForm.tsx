@@ -1,12 +1,15 @@
-import http from 'axios'
+import { Button, Input, Spacer } from '@nextui-org/react'
 import type { NextPage } from 'next'
-import Router from 'next/router'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Actions, useDispatch } from 'store'
-import { useSWRConfig } from 'swr'
+import styled from 'styled-components'
 
 interface LoginFormProps {}
+
+const LoginButton = styled(Button)`
+  width: 100%;
+`
 
 export const LoginForm: NextPage<LoginFormProps> = () => {
   const { register, handleSubmit } = useForm()
@@ -21,16 +24,24 @@ export const LoginForm: NextPage<LoginFormProps> = () => {
 
   return (
     <>
+      <Spacer y={2} />
       <form onSubmit={handleSubmit(handleClick)}>
-        <div>
-          <p>Email</p>
-          <input type="text" {...register('email')} />
-        </div>
-        <div>
-          <p>Password</p>
-          <input type="password" {...register('password')} />
-        </div>
-        <button>Login</button>
+        <Input
+          type="text"
+          fullWidth
+          labelPlaceholder="Email"
+          status="primary"
+          {...register('email')}
+        />
+        <Spacer y={1.5} />
+        <Input.Password
+          labelPlaceholder="Password"
+          fullWidth
+          status="primary"
+          {...register('password')}
+        />
+        <Spacer y={2} />
+        <LoginButton>Login</LoginButton>
       </form>
     </>
   )

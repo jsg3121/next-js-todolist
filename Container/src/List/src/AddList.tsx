@@ -1,5 +1,5 @@
 import http from 'axios'
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'store'
@@ -16,17 +16,14 @@ export const AddList: NextPage = (props) => {
   const { mutate } = useSWRConfig()
   const id = useSelector(({ auth }) => auth.id)
 
-  const { data: list = [], mutate: refetch } = useSWR(
-    `/api/list/${id}`,
-    async () => {
-      return await http
-        .request({
-          method: 'GET',
-          url: `/api/list/${id}`,
-        })
-        .then((res) => res.data)
-    }
-  )
+  const { data: list = [] } = useSWR(`/api/list/${id}`, async () => {
+    return await http
+      .request({
+        method: 'GET',
+        url: `/api/list/${id}`,
+      })
+      .then((res) => res.data)
+  })
 
   const handleClick = React.useCallback(
     (data) => {
