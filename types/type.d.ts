@@ -5,6 +5,6 @@ declare global {
     name: string
     email: string
     id: number
-    token: Jwt
+    token: Jwt | string
   }
 }

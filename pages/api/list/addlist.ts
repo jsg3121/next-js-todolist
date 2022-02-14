@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { NextApiHandler } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 interface Result {
   result: boolean
@@ -14,7 +14,17 @@ interface RequestData {
 
 const prisma = new PrismaClient()
 
-const handler: NextApiHandler<Result> = async (req, res) => {
+/**
+ * ! Todolist 추가 API
+ * @auth 장선규
+ * @param {NextApiRequest} req
+ * @param {NextApiResponse} res
+ * @return {Promise<void>}
+ */
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
   const { title, content, id = 0 } = <RequestData>req.body
 
   await prisma.post

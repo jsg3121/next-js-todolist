@@ -6,7 +6,13 @@ interface SignIn {
   password: string
 }
 
-export const signIn = async (data: SignIn) => {
+/**
+ * ! 로그인 async Action Api 요청
+ * @auth 장선규
+ * @param {SignIn} data
+ * @returns {Promise<UserData>}
+ */
+export const signIn = async (data: SignIn): Promise<UserData> => {
   return await http
     .request({
       method: 'POST',
@@ -18,7 +24,13 @@ export const signIn = async (data: SignIn) => {
     })
 }
 
-export const signOut = async (data: any) => {
+/**
+ * ! 로그인 async Action Api 요청
+ * @auth 장선규
+ * @param {string} data
+ * @returns {Promise<number>}
+ */
+export const signOut = async (data: string): Promise<number> => {
   const decrypy = JSON.parse(decrypToken(data))
   return await http
     .request({
@@ -31,10 +43,15 @@ export const signOut = async (data: any) => {
     })
 }
 
-export const tokenCheck = async () => {
+/**
+ * ! Token Check Action Api
+ * @auth 장선규
+ * @returns {Promise<UserData>}
+ */
+export const tokenCheck = async (): Promise<UserData> => {
   const token = localStorage.getItem('accessToken') || ''
   return await http
-    .request({
+    .request<UserData>({
       method: 'POST',
       url: '/api/auth/tokencheck',
       data: { token },

@@ -1,5 +1,7 @@
 import { PrismaClient, User } from '@prisma/client'
 
+type ApiResult = { code: number; data: Error | Boolean }
+
 const prisma = new PrismaClient()
 
 /**
@@ -49,9 +51,9 @@ export const insertToken = async (token: string, id: number): Promise<void> => {
  * info : 추후 토큰 관련 DB 수정시 삭제될 수 있습니다.
  * @auth 장선규
  * @param {string} token `string`
- * @returns {code: number, data: any}
+ * @returns {Promise<ApiResult>}
  */
-export const deleteToken = async (token: string) => {
+export const deleteToken = async (token: string): Promise<ApiResult> => {
   return await prisma.token
     .delete({
       where: {
@@ -64,7 +66,7 @@ export const deleteToken = async (token: string) => {
         data: true,
       }
     })
-    .catch((e) => {
+    .catch((e: Error) => {
       return {
         code: 500,
         data: e,

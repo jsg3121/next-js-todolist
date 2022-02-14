@@ -1,7 +1,19 @@
 import { Query } from 'database'
-import { NextApiHandler } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-const handler: NextApiHandler = async (req, res) => {
+type SignOutType = Boolean | Error
+
+/**
+ * ! 로그아웃 API
+ * @auth 장선규
+ * @param {NextApiRequest} req
+ * @param {NextApiResponse<SignOutType>} res
+ * @returns
+ */
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<SignOutType>
+) => {
   const { token } = req.body
 
   return await Query.deleteToken(token)
@@ -9,7 +21,7 @@ const handler: NextApiHandler = async (req, res) => {
       res.status(200).send(true)
       res.end()
     })
-    .catch((e) => {
+    .catch((e: Error) => {
       res.status(500).send(e)
       res.end()
     })

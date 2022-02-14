@@ -1,10 +1,20 @@
 import { PrismaClient } from '@prisma/client'
 import { decrypToken } from 'common/src/decrypToken'
-import { NextApiHandler } from 'next'
+import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 const prisma = new PrismaClient()
 
-const handler: NextApiHandler = async (req, res) => {
+/**
+ * ! 페이지 접속시 토큰 체크 API
+ * @auth 장선규
+ * @param {NextApiRequest} req
+ * @param {NextApiResponse<UserData>} res
+ * @return {Promise<void>}
+ */
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<UserData>
+): Promise<void> => {
   const { token } = req.body
   const { data } = JSON.parse(decrypToken(token))
 

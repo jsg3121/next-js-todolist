@@ -1,4 +1,4 @@
-import { PrismaClient, User } from '@prisma/client'
+import { User } from '@prisma/client'
 import { Query } from 'database'
 import jwt from 'jsonwebtoken'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -35,8 +35,8 @@ const createToken = (user: User): string => {
  * @param {NextApiRequest} req
  * @param {NextApiResponse<UserData>} res
  */
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email, password } = <RequestData>req.body
+const handler = async (req: NextApiRequest, res: NextApiResponse<UserData>) => {
+  const { email } = <RequestData>req.body
 
   const data = await Query.findUser(email)
 

@@ -1,12 +1,17 @@
-import type { NextApiHandler } from 'next'
 import { Query } from 'database'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 /**
  * ! TodoList 화면에 표시
- * @param req
- * @param res
+ * @auth 장선규
+ * @param {NextApiRequest} req
+ * @param {NextApiResponse} res
+ * @return {Promise<void>}
  */
-const handler: NextApiHandler = async (req, res) => {
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
   const { id } = req.query
 
   const { data, status } = await Query.findPost(<string>id)
