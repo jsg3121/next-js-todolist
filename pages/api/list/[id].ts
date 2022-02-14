@@ -1,6 +1,11 @@
 import type { NextApiHandler } from 'next'
 import { Query } from 'database'
 
+/**
+ * ! TodoList 화면에 표시
+ * @param req
+ * @param res
+ */
 const handler: NextApiHandler = async (req, res) => {
   const { id } = req.query
 

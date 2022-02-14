@@ -26,13 +26,6 @@ const authState: AuthState = {
 
 const authReducer = createReducer(authState, (builder) => {
   builder
-    .addCase(authActions.logout.fulfilled, (store, { payload }) => {
-      return produce(store, (draft) => {
-        draft.loading = false
-        draft.accessToken = ''
-        draft.refreshToken = ''
-      })
-    })
     .addCase(authActions.login.fulfilled, (store, { payload }) => {
       const encrypt = { token: payload.token, name: payload.name }
       encryptToken(encrypt)
@@ -52,6 +45,14 @@ const authReducer = createReducer(authState, (builder) => {
         draft.email = payload.email
       })
     })
+    .addCase(authActions.logout.fulfilled, (store, { payload }) => {
+      localStorage.removeItem('accessToken')
+      return produce(store, (draft) => {
+        draft.loading = false
+        draft.accessToken = ''
+        draft.refreshToken = ''
+      })
+    })
     .addMatcher(
       isAnyOf(
         authActions.logout.pending,
@@ -59,6 +60,8 @@ const authReducer = createReducer(authState, (builder) => {
         authActions.logout.rejected,
         authActions.logout.rejected,
         authActions.loginCheck.pending,
+        authActions.loginCheck.rejected,
+        authActions.logout.pending,
         authActions.loginCheck.rejected
       ),
       (store, _) => {

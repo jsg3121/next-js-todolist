@@ -1,3 +1,4 @@
+import { NextUIProvider } from '@nextui-org/react'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
@@ -19,9 +20,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <GlobalStyle />
-      <Main>
-        <Component {...pageProps} />
-      </Main>
+      <NextUIProvider>
+        <Main>
+          <Component {...pageProps} />
+        </Main>
+      </NextUIProvider>
     </>
   )
 }

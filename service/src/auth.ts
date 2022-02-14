@@ -20,7 +20,6 @@ export const signIn = async (data: SignIn) => {
 
 export const signOut = async (data: any) => {
   const decrypy = JSON.parse(decrypToken(data))
-
   return await http
     .request({
       method: 'POST',
@@ -37,7 +36,7 @@ export const tokenCheck = async () => {
   return await http
     .request({
       method: 'POST',
-      url: '/api/tokencheck',
+      url: '/api/auth/tokencheck',
       data: { token },
     })
     .then((res) => {

@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
+import { createAsyncThunk } from '@reduxjs/toolkit'
 import { signIn, signOut, tokenCheck } from 'service'
 
 type LoginFormType = {
@@ -7,9 +7,6 @@ type LoginFormType = {
   password: string
 }
 
-export const removeUser = createAction<any, '@@USER/REMOVEUSER'>(
-  '@@USER/REMOVEUSER'
-)
 export const login = createAsyncThunk<any, LoginFormType>(
   '@@USER/LOGIN',
   signIn
